@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <title> {% block title %} Delphi's Blog {% end %} </title>
+        {% block link %}
+            <link rel="stylesheet" type="text/css" href="{{static_url("style.css")}}">
+            <link rel="stylesheet" type="text/css" href="{{static_url("jquery-3.2.1.min.js")}}">
+        {% end %}
+        {% block header %}{% end %}
+    </header>
+
+    <body>
+        <div class="heading">
+            <div class="place_name"><h2>Hakunamatata</h2></div>
+            <div class="guide">
+                <ul>
+                    <li><a href="/">HomePage</a></li>
+                    <li><a href="/dairy">Dairy</a></li>
+                    <li><a href="/article">Article</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </div>
+        {% block body %}{% end %}
+        <div class="footing">
+            <p class="copyright">©Copyright 2017 Delphi</p>
+        </div>
+    </body>
+</html>

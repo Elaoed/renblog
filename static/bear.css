@@ -1,0 +1,95 @@
+/*.hashtag a{color:#fff}*/
+.note-wrapper .hashtag{
+    /*display:inline-block;*/
+    color:white;
+    background:#b8bfc2;
+    padding:0.0em 0.5em;
+    border-radius:1em;
+    text-indent:0
+}
+
+#school_space{
+    margin-left: 120px;
+    margin-right: 120px;
+
+}
+
+.note-wrapper {
+
+    max-width: 46em;
+    margin: 8px auto;
+    line-height: 1.45em;
+    padding: 1.57143em 3.14286em;
+    background-color: #fcfcfc;
+    font-size: 14px;
+    font-family:"Avenir-Book";
+    hyphens: auto;  /* 设置段落拆分 */
+}
+
+.note-wrapper hr {
+    color: #dedede;
+    border: 0;
+    height: 1px;
+    /*test-rendering: optimizeLegibility;*/
+}
+
+.note-wrapper blockquote{
+    display:block;
+    margin-left:-1em;
+    padding-left:0.8em;
+    border-left:0.2em solid #e06e73
+}
+
+.note-wrapper .code-inline{
+    display:inline-block;
+    background:white;
+    border:solid 1px #dedede;
+    padding:0.0em 0.5em;
+    font-size:0.9em
+}
+
+.note-wrapper .code-multiline{
+    display:block;
+    background:white;
+    border:solid 1px #dedede;
+    padding:0.7em 1em;
+    font-size:0.9em;
+    overflow-x:auto
+}
+
+
+.note-wrapper a{
+    color: #de4c4f;
+    text-decoration: none;
+}
+
+.note-wrapper ul{
+    padding-left: 0px;
+}
+
+.note-wrapper li{
+    list-style-type: none;
+}
+
+.note-wrapper p{
+    margin-top: 0px;
+    margin-bottom: 0.1em;
+}
+
+.note-wrapper ul li{
+    text-indent: -10px;
+}
+
+.note-wrapper ul li:before{
+    content: "•";
+    color: #e06e73;
+    margin-right: 5px;
+}
+
+.note-wrapper ul ul li:before{
+    content: "------";
+}
+
+.note-wrapper h1{
+    font-size: 22.4px;
+}

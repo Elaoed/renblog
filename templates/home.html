@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <div class="content">
+        <div class="main_content">
+            <div class="article_area">
+                <div class="articles">
+                    <ul>
+                        {% for article in data['articles'] %}
+                            <li><div><a href="/articles?name={{article}}">{{article}}</a></div></li>
+                        {% end %}
+                    </ul>
+                </div>
+
+                <div class="pages">
+                    <span>第{{ data['current_page'] }}页, &nbsp
+                    共{{ data['total_page'] }}页 &nbsp&nbsp&nbsp</span>
+
+                    {% if data['current_page'] != 1 %}
+                        <a href="/?page={{ data['current_page'] - 1 }}" class="goto"><<</a>
+                    {% end %}
+
+                    {% for page in range(data['total_page']) %}
+                        {% if page + 1 == data['current_page'] %}
+                            <a class="current">{{ page + 1 }}</a>
+                        {% else %}
+                            <a class="goto" href="/?page={{page + 1}}">{{ page + 1 }}</a>
+                        {% end %}
+
+                    {% end %}
+
+                    {% if data['current_page'] != data['total_page'] %}
+                        <a href="/?page={{ data['current_page'] + 1 }}" class="goto">>></a>
+                    {% end %}
+                </div>
+            </div>
+            <div class="links">
+                <div class="description">
+                    <h3>关于</h3><br>
+                    Word is never eternal --<br>
+                        just remeber it
+                </div>
+                <div class="about-links">
+                    <ul>
+                        <li>github.com</li>
+                    </ul>
+                </div>
+                <div class="functionality">
+                    <ul>
+                        <li>登录</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% end %}
