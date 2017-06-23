@@ -66,15 +66,23 @@ h3{ font-family:"Avenir-Medium";
 
 .place_name h2{
     margin: 0px;
+    width: 60%;
     padding-top:28px;
     font-size: 26px;
+}
+
+#avatar{
+    height: 40px;
+    width: 40px;
+    margin-top: 5px;
+    float: right;
 }
 
 .guide{
     width: 70%;
     height: 100%;
     color: rgba( 0, 0, 0, 0.6 );
-    float: left;
+    float: right;
 }
 
 .guide ul{
