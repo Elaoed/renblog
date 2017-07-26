@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+    {% block body %}
+        <div class="seoDiv">
+            请输入你的域名  <input type="text">
+            <select>
+                <option value="basic" selected="selected">基本信息查询</option>
+                <option value="dead">死链接查询</option>
+                <option value="friend">友情链接查询</option>
+                <option value="keyword">关键字排名查询</option>
+                <option value="whois">Whois查询</option>
+            </select>
+        </div>
+
+    {% end %}

@@ -86,7 +86,7 @@ h3{ font-family:"Avenir-Medium";
 }
 
 .guide ul{
-    margin-left:350px;
+    margin-left:45px;
     margin-top: 30px;
 }
 .guide li{
@@ -104,8 +104,8 @@ h3{ font-family:"Avenir-Medium";
 
 .article_area{
     /*width: 73%;*/
-    padding-left: 40px;
-    width: 700px;
+    /*padding-left: 40px;*/
+    width: 600px;
     height: 800px;
     background-color: white;
     float: left;
@@ -176,4 +176,10 @@ h3{ font-family:"Avenir-Medium";
     padding-left: 73px;
     padding-top: 25px;
     color : #717171;
+}
+
+.seoDiv{
+    margin-left:50px;
+    margin-top:50px;
+    min-height: 500px   ;
 }

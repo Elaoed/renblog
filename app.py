@@ -40,8 +40,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
 
 class IndexHandler(BaseHandler):
-    u"""Home page
-    """
+    """Home page"""
 
     def get(self):
         page = self.get_argument("page", "1")
@@ -52,33 +51,41 @@ class IndexHandler(BaseHandler):
 
         articles = os.listdir(os.path.dirname(os.path.realpath(__file__)) + "/articles")
         displays = [x.split(".")[0] for x in articles[(page - 1) * 10:10 * page]]
-        page_numbers = len(articles) / 10
+        page_numbers = len(articles) // 10
         if len(articles) % 10 > 0:
             page_numbers += 1
         data = {
             'articles': displays,
             'total_page': page_numbers,
-            'current_page': page
+            'current_page': page,
+            'create_data': "",
+            'tags': ""
         }
         return self.render("home.html", data=data)
 
 
 class ErrorHandler(BaseHandler):
-    u""""""
+    """"""
 
     def get(self):
         return self.finish("404")
 
 
 class AboutHandler(BaseHandler):
-    u"""Probably it's a resume of myself"""
+    """Probably it's a resume of myself"""
 
     def get(self):
         return self.render("about.html")
 
+class SeoHandler(BaseHandler):
+    """Probably it's a resume of myself"""
+
+    def get(self):
+        return self.render("seo.html")
+
 
 class ArticleHandler(BaseHandler):
-    u"""Article page"""
+    """Article page"""
 
     def get(self):
         article_name = self.get_argument("name", "")
@@ -100,7 +107,7 @@ class ArticleHandler(BaseHandler):
 
 
 def create_app():
-    define("port", default=8080, help="run on the given port")
+    define("port", default=8081, help="run on the given port")
 
     settings = dict(
         template_path=os.path.join(ROOT_PATH, "templates"),
@@ -115,8 +122,10 @@ def create_app():
                                             (r"/articles", ArticleHandler),
                                             (r"/404", ErrorHandler),
                                             (r"/about", AboutHandler),
+                                            (r"/seoDataScrapy", SeoHandler),
                                             ], **settings)
     return app
+
 
 if __name__ == "__main__":
     tornado.options.parse_command_line()
