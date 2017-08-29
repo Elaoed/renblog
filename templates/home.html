@@ -1,12 +1,16 @@
 {% extends 'layout.html' %}
 {% block body %}
     <div class="content">
-        <div class="main_content">
+        <div class="main_content clearfix">
             <div class="article_area">
                 <div class="articles">
                     <ul>
                         {% for article in data['articles'] %}
-                            <li><div><a href="/articles?name={{article}}">{{article}}</a></div></li>
+                            <li class="title">
+                                <a href="/articles?name={{article}}">{{article}}</a>
+                                <div>时间</div>
+                            </li>
+
                         {% end %}
                     </ul>
                 </div>
@@ -51,5 +55,6 @@
                 </div>
             </div>
         </div>
+        <div style="clear: both;"></div>
     </div>
 {% end %}
