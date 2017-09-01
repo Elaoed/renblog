@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
     <header>
-        <title> {% block title %} Delphi's Blog {% end %} </title>
+        <title> {% block title %} Delphi's Blog {% endblock %} </title>
         {% block link %}
-            <link rel="stylesheet" type="text/css" href="{{static_url("style.css")}}">
-            <link rel="stylesheet" type="text/css" href="{{static_url("jquery-3.2.1.min.js")}}">
-        {% end %}
-        {% block header %}{% end %}
+            <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="style.css") }}>
+            <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="style.css") }}">
+        {% endblock %}
+        {% block header %}{% endblock %}
     </header>
 
     <body>
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        {% block body %}{% end %}
+        {% block body %}{% endblock %}
         <div class="footing">
             <p class="copyright">©Copyright 2017 Delphi</p>
         </div>
