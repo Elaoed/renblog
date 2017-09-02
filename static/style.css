@@ -78,7 +78,8 @@ h3{ font-family:"Avenir-Medium";
 .place_name h2{
     margin: 0px;
     width: 60%;
-    padding-top:28px;
+    padding-top: 32px;
+    padding-left: 100px;
     font-size: 26px;
 }
 
@@ -97,13 +98,15 @@ h3{ font-family:"Avenir-Medium";
 }
 
 .guide ul{
+    padding-right: 100px;
     margin-left:45px;
     margin-top: 30px;
+    float: right;
 }
 .guide li{
     display: inline;
     list-style: none;
-    margin-left: 60px;
+    margin-left: 20px;
     margin-top: 30px;
 }
 
@@ -114,7 +117,7 @@ h3{ font-family:"Avenir-Medium";
 }
 
 .article_area{
-    width: 600px;
+    min-width: 800px;
     min-height: 800px;
     background-color: white;
     float: left;
@@ -191,11 +194,17 @@ h3{ font-family:"Avenir-Medium";
     min-height: 500px;
 }
 
-a .title{
+a.title{
     font-size: 28px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
-a.title a:hover{
-    color: blue;
+a.title:hover{
+    text-decoration: underline;
+}
+
+.timestamp{
+    padding-bottom: 10px;
+    padding-top: 10px;
 }

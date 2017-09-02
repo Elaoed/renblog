@@ -6,14 +6,11 @@
                 <div class="articles">
                     <ul>
                         {% for article in data['articles'] %}
-                            <li>
-                                <a class="title" href="/articles?name={{article}}">{{article}}</a>
-                                <div class="timestamp">时间</div>
-                                <div class="tags">标签</div>
-                                <div class="desc">简介</div>
-                                <a href="" class="readmore">阅读全文</a>
-                            </li>
-
+                        <li>
+                            <a class="title" href="/articles/{{article}}">{{article}}</a>
+                            <div class="timestamp">时间 | 标签</div>
+                            <div class="desc">简介<a href="" class="readmore">...阅读全文</a></div>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>

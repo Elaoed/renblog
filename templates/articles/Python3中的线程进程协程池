@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Python3中的线程池 进程池 和协程池</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="created" content="2017-08-30T08:46:45+0800"/>
+        <meta name="modified" content="2017-09-02T11:53:27+0800"/>
+        <meta name="tags" content="工作日记"/>
+        <meta name="last device" content="Cpython的MacBook Pro"/>
+    </head>
+    <body>
+        <div class="note-wrapper">
+            <h1>Python3中的线程池 进程池 和协程池</h1>
+<p><span class='hashtag'>#工作日记</span></p>
+<p><time>2017-08-30<time></p>
+<br>
+<blockquote>
+<p>在之前的应用开发的场景中，为了增加程序的运行效率我会用到多线程或者多进程(放屁 从来没用到过这个)。思路有两种</p>
+<br>
+</blockquote>
+<p>在给了一个task列表的前提下</p>
+<ol start="1"><li>给其中的每个task都开个线程跑task。
+</li><li>指定线程数比如40然后就开40个线程。 把所有的任务放到一个Queue里面去，然后再用queue.qsize(), queue.get()来判断获取 外层还要加多个try catch来应对多线程的变化
+</li></ol>
+<br>
+<p>以上两种情况 第一种写起来比较简单 但是有成千上万个任务的时候就没办法控制线程的数量 也就是不适用于高并发。 第二种写起来比较麻烦而且传参数更麻烦我的天。 </p>
+<p>今天看到了dos_attck.py里面用了线程池和进程池 我就来研究了一下 发现卧槽！ 这玩意儿对上面👆两种情况进行了合并 取其精华去其糟粕 可以说爽！</p>
+<br>
+<p>第一步 安装threadpool模块</p>
+<blockquote>
+<p>pip install threadpool</p>
+<br>
+</blockquote>
+<p>第二步 写代码</p>
+<pre><code class='code-multiline'>from threadpool import ThreadPool
+from threadpool import makeRequests
+pool = ThreadPool(poolsize)  # 指定pool的大小 也就是线程数
+requests = makeRequests(some_callable, list_of_args, callback) 
+[pool.putRequest(req) for req in requests]  # 用了行列式简化
+pool.wait()  # 相当于 thread.join()</code></pre>
+<p><br></p>
+<p><mark>注意</mark>  makeRequests(some<i>callable, list</i>of_args, callback) </p>
+<p>第一个参数是 目标函数。 </p>
+<p>第二个对象是 N个参数 可以小于poolsize。 如果大于poolsize他就会自动分配， 如果目标参数有多个list<i>of</i>args = [((1, 2, 3), {}), ((1, 2, 3), {})] 这样的形式</p>
+<p>第三个参数是 callback。 接受两个参数 一个参数是返回值 第二个参数是<WorkRequest id=4505401664 args=['dd'] kwargs={} exception=False></p>
+<br>
+<br>
+<p><b>总结</b></p>
+<p>更方便 更直观 代码更少</p>
+<br>
+<hr>
+<br>
+<h1>进程池(multiprocessing)</h1>
+<p>物以类聚 其实都是差不多的概念</p>
+<p>multiprocessing模块是python自带 不需要安装</p>
+<pre><code class='code-multiline'>import multiprocessing
+def func(msg):
+    print(msg)
+    return "func"
+
+pool = multiprocessing.Pool(processes=3)
+for i in range(4):
+    msg = "hello %d" % i
+    pool.apply_async(func, (msg, ))
+pool.close()
+pool.join()  # 调用join之前，先调用close函数，否则会出错。执行完close后不会有新的进程加入到pool, join函数等待所有子进程结束</code></pre>
+<p><br></p>
+<br>
+<h1>协程池</h1>
+<p>把这三个玩意儿放一起了。 上网搜好像是没有这个什么所谓的协程池的。 反正原理都一样那我就自己编一个。 主要是看了K神的grequests模块儿 里面就有用到这个pool的概念 我就把他单独提出来记录记录。 至于不懂什么是协程的小朋友可以回去补补，保证你用了他以后不会想用多线程了。</p>
+<p><b>Pools are useful because you can specify size and can hence limit concurrency</b></p>
+<br>
+<blockquote>
+<p>pip install grequests</p>
+<br>
+</blockquote>
+<pre><code class='code-multiline'>import gevent
+from gevent import monkey
+from gevent.pool import Pool
+monkey.patch_all(thread=False, select=False)
+pool = gevent.Pool(size)
+
+def func(param):
+    print(param)
+    return "func"
+
+rs = [pool.spawn(func, "hello") for _ in range(4)]
+gevent.joinall(tasks)
+
+</code></pre>
+        </div>
+        <script type="text/javascript">
+            (function() {
+
+    var doc_ols = document.getElementsByTagName("ol");
+
+    for ( i=0; i<doc_ols.length; i++) {
+
+        var ol_start = doc_ols[i].getAttribute("start") - 1;
+        doc_ols[i].setAttribute("style", "counter-reset:ol " + ol_start + ";");
+
+    }
+
+})();
+        </script>
+        <style>
+            html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline}html{line-height:1}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0}caption,th,td{text-align:left;font-weight:normal;vertical-align:middle}q,blockquote{quotes:none}q:before,q:after,blockquote:before,blockquote:after{content:"";content:none}a img{border:none}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}*{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}html{font-size:87.5%;line-height:1.57143em}html{font-size:14px;line-height:1.6em;-webkit-text-size-adjust:100%}body{background:#fcfcfc;color:#545454;text-rendering:optimizeLegibility;font-family:"AvenirNext-Regular"}a{color:#de4c4f;text-decoration:none}h1{font-family:"AvenirNext-Medium";color:#333;font-size:1.6em;line-height:1.3em;margin-bottom:.78571em}h2{font-family:"AvenirNext-Medium";color:#333;font-size:1.3em;line-height:1em;margin-bottom:.62857em}h3{font-family:"AvenirNext-Medium";color:#333;font-size:1.15em;line-height:1em;margin-bottom:.47143em}p{margin-bottom:1.57143em;hyphens:auto}hr{height:1px;border:0;background-color:#dedede;margin:-1px auto 1.57143em auto}ul,ol{margin-bottom:1.57143em}ul ul,ul ol,ol ul,ol ol{margin-bottom:0px}ol li:before{content:counter(ol) ".";counter-increment:ol;color:#e06e73;text-align:right;display:inline-block;min-width:1em;margin-right:0.5em}b,strong{font-family:"AvenirNext-Bold"}i,em{font-family:"AvenirNext-Italic"}code{font-family:"Menlo-Regular"}.text-overflow-ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sf_code_syntax_string{color:#D33905}.sf_code_syntax_comment{color:#838383}.sf_code_syntax_documentation_comment{color:#128901}.sf_code_syntax_number{color:#0E73A2}.sf_code_syntax_project{color:#5B2599}.sf_code_syntax_keyword{color:#0E73A2}.sf_code_syntax_character{color:#1B00CE}.sf_code_syntax_preprocessor{color:#920448}.note-wrapper{max-width:46em;margin:0px auto;padding:1.57143em 3.14286em}.note-wrapper.spotlight-preview{overflow-x:hidden}u{text-decoration:none;background-image:linear-gradient(to bottom, rgba(0,0,0,0) 50%,#e06e73 50%);background-repeat:repeat-x;background-size:2px 2px;background-position:0 1.05em}s{color:#878787}p{margin-bottom:0.1em}hr{margin-bottom:0.7em;margin-top:0.7em}ul li{text-indent:-0.6em}ul li:before{content:"•";color:#e06e73;display:inline-block;margin-right:0.3em}ul ul{margin-left:1.25714em}ol li{text-indent:-1.55em}ol ol{margin-left:1.25714em}blockquote{display:block;margin-left:-1em;padding-left:0.8em;border-left:0.2em solid #e06e73}.todo-list ul{margin-left:1.88571em}.todo-list li{text-indent:-1.75em}.todo-list li:before{content:"";display:static;margin-right:0px}.todo-checkbox{text-indent:-1.7em}.todo-checkbox svg{margin-right:0.3em;position:relative;top:0.2em}.todo-checkbox svg #check{display:none}.todo-checkbox.todo-checked #check{display:inline}.todo-checkbox.todo-checked .todo-text{text-decoration:line-through;color:#878787}.code-inline{display:inline-block;background:white;border:solid 1px #dedede;padding:0.0em 0.5em;font-size:0.9em}.code-multiline{display:block;background:white;border:solid 1px #dedede;padding:0.7em 1em;font-size:0.9em;overflow-x:auto}.hashtag{display:inline-block;color:white;background:#b8bfc2;padding:0.0em 0.5em;border-radius:1em;text-indent:0}.hashtag a{color:#fff}.address a{color:#545454;background-image:linear-gradient(to bottom, rgba(0,0,0,0) 50%,#0da35e 50%);background-repeat:repeat-x;background-size:2px 2px;background-position:0 1.05em}.address svg{position:relative;top:0.2em;display:inline-block;margin-right:0.2em}.color-preview{display:inline-block;width:1em;height:1em;border:solid 1px rgba(0,0,0,0.3);border-radius:50%;margin-right:0.1em;position:relative;top:0.2em;white-space:nowrap}.color-code{margin-right:0.2em;font-family:"Menlo-Regular";font-size:0.9em}.color-hash{opacity:0.4}.ordered-list-number{color:#e06e73;text-align:right;display:inline-block;min-width:1em}.arrow svg{position:relative;top:0.08em;display:inline-block;margin-right:0.15em;margin-left:0.15em}.arrow svg #rod{stroke:#545454}.arrow svg #point{fill:#545454}mark{color:inherit;display:inline-block;padding:0px 4px;background-color:#fcffc0}img{max-width:100%;height:auto}
+
+        </style>
+    </body>
+</html>

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
     <header>
-        <title> {% block title %} Delphi's Blog {% endblock %} </title>
+        <title> {% block title %} Delphi's Blog 鹏鹏与丁满的天堂 {% endblock %} </title>
         {% block link %}
             <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="style.css") }}>
-            <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="style.css") }}">
         {% endblock %}
         {% block header %}{% endblock %}
     </header>
@@ -18,9 +17,7 @@
             <div class="guide">
                 <ul>
                     <li><a href="/">HomePage</a></li>
-                    <li><a href="/dairy">Dairy</a></li>
-                    <li><a href="/article">Article</a></li>
-                    <li><a href="/seoDataScrapy">SeoDataScrapy</a></li>
+                    <li><a href="/archive">Archive</a></li>
                     <li><a href="/about">About</a></li>
                 </ul>
             </div>

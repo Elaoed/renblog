@@ -1,13 +1,14 @@
 {% extends 'layout.html' %}
     {% block link %}
         <meta charset="utf-8" />
-        <link rel="stylesheet" type="text/css" href="{{static_url("style.css")}}">
-        <link rel="stylesheet" type="text/css" href="{{static_url("bear.css")}}">
-        <link rel="stylesheet" type="text/css" href="{{static_url("jquery-3.2.1.min.js")}}">
-    {% end %}
+        <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="style.css") }}>
+        <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="bear.css") }}>
+        <script src={{ url_for("static", filename="jquery-3.2.1.min.js") }}></script>
+
+    {% endblock %}
     {% block title %}
         关于我 —— 一个懒惰的90后
-    {% end %}
+    {% endblock %}
 
 {% block body %}
 <div class="note-wrapper">
@@ -77,4 +78,4 @@
     </li></ul>
 </div>
 
-{% end %}
+{% endblock %}
