@@ -1,8 +1,8 @@
 # encoding=utf-8
 """Made by delphi for himself's blog"""
 
+import re
 import os
-# import binascii
 from lxml import etree
 
 from flask import Flask
@@ -17,12 +17,33 @@ ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 def index():
 
     excludes = [".DS_Store"]
-    articles = os.listdir(os.path.dirname(os.path.realpath(__file__)) + "/templates/articles")
+    article_path = os.path.dirname(os.path.realpath(__file__)) + "/templates/articles"
+    articles = os.listdir(article_path)
     articles = [a for a in articles if a not in excludes]
-    data = {
-        'articles': articles,
-    }
-    return render_template("home.html", data=data)
+
+    article_infos = []
+    for article in articles[:1]:
+        file_path = article_path + "/" + article
+        with open(file_path, 'r') as f:
+            content = f.read()
+
+        selector = etree.HTML(content)
+        create_time = selector.xpath("//meta[@name='created']/@content")[0]
+        tags = selector.xpath("//meta[@name='tags']/@content")
+        title = selector.xpath("//title/text()")[0]
+        desc = re.search("<desc>(.*?)</desc>", content, re.S)
+        desc = desc.group(0) if desc else ""
+        desc = re.sub(r'</?[^>]*>', "", desc)
+
+        info = {
+            'create_time': create_time,
+            'tags': tags[0],
+            'title': title,
+            'desc': desc
+        }
+        article_infos.append(info)
+
+    return render_template("home.html", articles=article_infos)
 
 
 @app.route("/404")
@@ -41,7 +62,7 @@ def article(name=""):
     # file_path = ROOT_PATH + "/articles/" + name
     # if not os.path.exists(file_path):
     #     return "404"
-    file_path = "articles/" + "Phrase.html"
+    file_path = "articles/" + name
 
     # with open(file_path, 'r') as f:
     #     article = f.read()

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Python3中的线程池 进程池 和协程池</title>
+        <title>Python3中的线进协程池</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="created" content="2017-08-30T08:46:45+0800"/>
-        <meta name="modified" content="2017-09-02T11:53:27+0800"/>
-        <meta name="tags" content="工作日记"/>
+        <meta name="modified" content="2017-09-02T19:19:30+0800"/>
+        <meta name="tags" content="Python, 技术"/>
         <meta name="last device" content="Cpython的MacBook Pro"/>
     </head>
     <body>
         <div class="note-wrapper">
-            <h1>Python3中的线程池 进程池 和协程池</h1>
-<p><span class='hashtag'>#工作日记</span></p>
-<p><time>2017-08-30<time></p>
+            <h1>Python3中的线进协程池</h1>
+<p><span class='hashtag'>#技术</span></p>
+<p><span class='hashtag'>#Python</span></p>
 <br>
+<p><desc></p>
 <blockquote>
 <p>在之前的应用开发的场景中，为了增加程序的运行效率我会用到多线程或者多进程(放屁 从来没用到过这个)。思路有两种</p>
 <br>
@@ -22,17 +23,17 @@
 <p>在给了一个task列表的前提下</p>
 <ol start="1"><li>给其中的每个task都开个线程跑task。
 </li><li>指定线程数比如40然后就开40个线程。 把所有的任务放到一个Queue里面去，然后再用queue.qsize(), queue.get()来判断获取 外层还要加多个try catch来应对多线程的变化
-</li></ol>
-<br>
-<p>以上两种情况 第一种写起来比较简单 但是有成千上万个任务的时候就没办法控制线程的数量 也就是不适用于高并发。 第二种写起来比较麻烦而且传参数更麻烦我的天。 </p>
-<p>今天看到了dos_attck.py里面用了线程池和进程池 我就来研究了一下 发现卧槽！ 这玩意儿对上面👆两种情况进行了合并 取其精华去其糟粕 可以说爽！</p>
-<br>
-<p>第一步 安装threadpool模块</p>
+</li></ol></desc>
+
+以上两种情况 第一种写起来比较简单 但是有成千上万个任务的时候就没办法控制线程的数量 也就是不适用于高并发。 第二种写起来比较麻烦而且传参数更麻烦我的天。 
+今天看到了dos_attck.py里面用了线程池和进程池 我就来研究了一下 发现卧槽！ 这玩意儿对上面👆两种情况进行了合并 取其精华去其糟粕 可以说爽！
+
+第一步 安装threadpool模块
 <blockquote>
-<p>pip install threadpool</p>
-<br>
+pip install threadpool
+
 </blockquote>
-<p>第二步 写代码</p>
+第二步 写代码
 <pre><code class='code-multiline'>from threadpool import ThreadPool
 from threadpool import makeRequests
 pool = ThreadPool(poolsize)  # 指定pool的大小 也就是线程数

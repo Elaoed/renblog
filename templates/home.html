@@ -5,11 +5,11 @@
             <div class="article_area">
                 <div class="articles">
                     <ul>
-                        {% for article in data['articles'] %}
+                        {% for article in articles %}
                         <li>
-                            <a class="title" href="/articles/{{article}}">{{article}}</a>
-                            <div class="timestamp">时间 | 标签</div>
-                            <div class="desc">简介<a href="" class="readmore">...阅读全文</a></div>
+                            <a class="title" href="/articles/{{article['title']}}">{{article['title']}}</a>
+                            <div class="timestamp">{{article['create_time']}} | {{article['tags']}}</div>
+                            <div class="desc">{{article['desc']}}<a href="" class="readmore">...阅读全文</a></div>
                         </li>
                         {% endfor %}
                     </ul>
