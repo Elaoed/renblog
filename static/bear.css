@@ -87,9 +87,31 @@
 }
 
 .note-wrapper ul ul li:before{
-    content: "------";
+    content: "    □";
+}
+
+.note-wrapper ol li:before{
+    content: counter(ol) ".";
+    counter-increment: ol;
+    color: #e06e73;
+    text-align: right;
+    display: inline-block;
+    min-width: 1em;
+    margin-right: 0.5em;
 }
 
 .note-wrapper h1{
     font-size: 22.4px;
+}
+
+.note-wrapper mark{
+    background-color: #fcffc0;
+    padding: 4px;
+    display: inline-block;
+    color: inherit;
+
+}
+
+.desc.note-wrapper {
+    padding: 0px;
 }

@@ -10,9 +10,7 @@
                             <a class="title" href="/articles/{{article['title']}}">{{article['title']}}</a>
                             <div class="timestamp">{{article['create_time']}} | {{article['tags']}}</div>
                             <div class="desc note-wrapper">{{article['desc']|safe}}
-                                <blockquote>
-                                <a href="" class="readmore">(...更多)</a>
-                                </blockquote>
+                                <a href="/articles/{{article['title']}}" class="readmore">(...更多)</a>
                             </div>
                         </li>
                         {% endfor %}

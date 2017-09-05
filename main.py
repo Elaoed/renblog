@@ -61,6 +61,8 @@ def index():
             content = f.read()
 
         content = content.replace("class=“desc”", "class='desc'")
+        content = content.replace("<i>", "_")
+        content = content.replace("</i>", "_")
         if "<!DOCTYPE html>" in content:
             format_new_article(content, file_path)
 

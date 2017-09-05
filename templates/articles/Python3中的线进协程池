@@ -43,9 +43,9 @@ requests = makeRequests(some_callable, list_of_args, callback)
 [pool.putRequest(req) for req in requests]  # 用了行列式简化
 pool.wait()  # 相当于 thread.join()</code></pre>
 <p><br/></p>
-<p><mark>注意</mark>  makeRequests(some<i>callable, list</i>of_args, callback) </p>
+<p><mark>注意</mark>  makeRequests(some_callable, list_of_args, callback) </p>
 <p>第一个参数是 目标函数。 </p>
-<p>第二个对象是 N个参数 可以小于poolsize。 如果大于poolsize他就会自动分配， 如果目标参数有多个list<i>of</i>args = [((1, 2, 3), {}), ((1, 2, 3), {})] 这样的形式</p>
+<p>第二个对象是 N个参数 可以小于poolsize。 如果大于poolsize他就会自动分配， 如果目标参数有多个list_of_args = [((1, 2, 3), {}), ((1, 2, 3), {})] 这样的形式</p>
 <p>第三个参数是 callback。 接受两个参数 一个参数是返回值 第二个参数是<workrequest args="['dd']" exception="False" id="4505401664" kwargs="{}"></workrequest></p>
 <br/>
 <br/>
