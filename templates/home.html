@@ -9,7 +9,11 @@
                         <li>
                             <a class="title" href="/articles/{{article['title']}}">{{article['title']}}</a>
                             <div class="timestamp">{{article['create_time']}} | {{article['tags']}}</div>
-                            <div class="desc">{{article['desc']}}<a href="" class="readmore">...阅读全文</a></div>
+                            <div class="desc note-wrapper">{{article['desc']|safe}}
+                                <blockquote>
+                                <a href="" class="readmore">(...更多)</a>
+                                </blockquote>
+                            </div>
                         </li>
                         {% endfor %}
                     </ul>
@@ -18,19 +22,13 @@
             </div>
             <div class="links">
                 <div class="description">
-                    <h3>关于</h3><br>
-                    Word is never eternal --<br>
-                        just remeber it
+                    <h3>关于</h3>
+                    <p style="line-height: 20px"><span style="width:2px"></span>泉涸，鱼相与处于陆，相呴以湿，相濡以沫，不若相忘于江湖。</p>
+                    <p>与其誉尧而非桀也，不如两忘而化其道。</p>
                 </div>
                 <div class="about-links">
-                    <ul>
-                        <li>github.com</li>
-                    </ul>
                 </div>
                 <div class="functionality">
-                    <ul>
-                        <li>登录</li>
-                    </ul>
                 </div>
             </div>
         </div>

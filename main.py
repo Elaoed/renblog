@@ -3,6 +3,8 @@
 
 import re
 import os
+from io import StringIO
+from bs4 import BeautifulSoup
 from lxml import etree
 
 from flask import Flask
@@ -12,6 +14,37 @@ app = Flask(__name__)
 
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 
+def format_new_article(content, file_path):
+    soup = BeautifulSoup(content, 'lxml')
+    note = soup.find("div", attrs={'class': "note-wrapper"}).__str__()
+    title = soup.find("title").contents[0]
+    created = soup.find("meta", attrs={'name': "created"})['content']
+    tags = soup.find("meta", attrs={'name': "tags"})['content']
+
+    article = StringIO()
+    article.write("{% extends 'layout.html' %}\n")
+    article.write("<title>%s</title>\n" % title)
+    article.write("""
+{% block link %}
+<link rel="stylesheet" style="text/css" href={{ url_for("static", filename="bear.css") }}>
+<link rel="stylesheet" style="text/css" href={{ url_for("static", filename="style.css") }}>
+{% endblock %}
+    {% block header %}
+              """)
+    article.write("""
+<meta name="created" content="%s">
+<meta name="tags" content="%s">
+                  """ % (created, tags))
+
+    article.write("""
+{% endblock %}
+{% block body %}
+                  """)
+    article.write(note)
+    article.write("\n{% endblock %}")
+
+    with open(file_path, 'w') as f:
+        f.write(article.getvalue())
 
 @app.route("/")
 def index():
@@ -27,22 +60,23 @@ def index():
         with open(file_path, 'r') as f:
             content = f.read()
 
-        selector = etree.HTML(content)
-        create_time = selector.xpath("//meta[@name='created']/@content")[0]
-        tags = selector.xpath("//meta[@name='tags']/@content")
-        title = selector.xpath("//title/text()")[0]
-        desc = re.search("<desc>(.*?)</desc>", content, re.S)
-        desc = desc.group(0) if desc else ""
-        desc = re.sub(r'</?[^>]*>', "", desc)
+        content = content.replace("class=“desc”", "class='desc'")
+        if "<!DOCTYPE html>" in content:
+            format_new_article(content, file_path)
+
+        soup = BeautifulSoup(content, 'lxml')
+        tags = soup.find("meta", attrs={'name': "tags"})['content']
+        created = soup.find("meta", attrs={'name': "created"})['content']
+        title = soup.find("title").contents[0]
+        desc = soup.find("div", attrs={'class': "desc"}).__str__()
 
         info = {
-            'create_time': create_time,
-            'tags': tags[0],
+            'create_time': created,
+            'tags': tags,
             'title': title,
             'desc': desc
         }
         article_infos.append(info)
-
     return render_template("home.html", articles=article_infos)
 
 
@@ -59,26 +93,15 @@ def about():
 @app.route("/articles/<name>")
 def article(name=""):
 
-    # file_path = ROOT_PATH + "/articles/" + name
-    # if not os.path.exists(file_path):
-    #     return "404"
+    file_path = ROOT_PATH + "/templates/articles/" + name
+    print(file_path)
+    if not os.path.exists(file_path):
+        return render_template("404.html")
     file_path = "articles/" + name
-
-    # with open(file_path, 'r') as f:
-    #     article = f.read()
-    # selector = etree.HTML(article)
-    # note = selector.xpath("/html/body/div[@class=\"note-wrapper\"]")
-    # title = selector.xpath("/html/body/div[@class=\"note-wrapper\"]/h1/text()")
-    # title = title[0].encode('utf-8')
-    # content = note[0].xpath('string(.)').encode('utf-8')
-    # data = {
-    #     'title': title,
-    #     'content': content
-    # }
     return render_template(file_path)
 
 
 if __name__ == "__main__":
 
     print("Running on the port 8080......")
-    app.run(host='0.0.0.0', port=8081, debug=False)
+    app.run(host='0.0.0.0', port=8081, debug=True)

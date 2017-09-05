@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+    {% block link %}
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="style.css") }}>
+        <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="bear.css") }}>
+        <script src={{ url_for("static", filename="jquery-3.2.1.min.js") }}></script>
+
+    {% endblock %}
+
+{% block body %}
+    <div style="min-height: 350px; padding-left:50px; padding-top: 50px;">
+        Oooops. The website you are looking is not found.
+    </div>
+
+
+{% endblock %}
