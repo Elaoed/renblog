@@ -119,6 +119,7 @@ h3{ font-family:"Avenir-Medium";
 .article_area{
     max-width: 800px;
     min-height: 800px;
+    width: 70%;
     background-color: white;
     float: left;
     border-right: 1px solid #e9e9e9;
@@ -157,7 +158,13 @@ h3{ font-family:"Avenir-Medium";
     color: black;
 }
 
-.links{width: 220px; height: 500px; background-color: white; float: left;}
+.links{
+    width: 25%;
+    height: 500px;
+    background-color: white;
+    float: right;
+    margin-right: 3%;
+}
 
 .description{
     padding-left: 20px;
@@ -204,16 +211,35 @@ a.title:hover{
     text-decoration: underline;
 }
 
-.timestamp{
+.column{
     padding-bottom: 10px;
     padding-top: 15px;
+    /*padding-left: 20px;*/
 }
 
 .desc{
     line-height: 25px;
 }
 
+.desc.note-wrapper{
+    margin: 0px;
+}
+
 a.readmore{
     padding-top: 5px;
     display: inline-block;
+}
+
+ul.archive li{
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+ul.archive li::before{
+    content: "♥";
+    padding-right:10px ;
+}
+
+ul.archive li a{
+    padding-left: 20px;
 }

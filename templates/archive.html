@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <ul class="archive" style="min-height: 400px">
+        {% for article in articles %}
+        <li><span>{{article['created']}}</span><a href="">{{article['title']}}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

@@ -5,10 +5,11 @@ import re
 import os
 from io import StringIO
 from bs4 import BeautifulSoup
-from lxml import etree
 
 from flask import Flask
 from flask import render_template
+
+from config.conf import conf
 
 app = Flask(__name__)
 
@@ -18,8 +19,11 @@ def format_new_article(content, file_path):
     soup = BeautifulSoup(content, 'lxml')
     note = soup.find("div", attrs={'class': "note-wrapper"}).__str__()
     title = soup.find("title").contents[0]
-    created = soup.find("meta", attrs={'name': "created"})['content']
     tags = soup.find("meta", attrs={'name': "tags"})['content']
+
+    created = soup.find("meta", attrs={'name': "created"})['content']
+    res = re.match(r"^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2})", created)
+    created = " ".join([res.group(1), res.group(2)])
 
     article = StringIO()
     article.write("{% extends 'layout.html' %}\n")
@@ -72,6 +76,11 @@ def index():
         title = soup.find("title").contents[0]
         desc = soup.find("div", attrs={'class': "desc"}).__str__()
 
+        if article not in conf['articles']:
+            conf['articles'][article] = {
+                'title': title,
+                'created': created
+            }
         info = {
             'create_time': created,
             'tags': tags,
@@ -101,6 +110,13 @@ def article(name=""):
         return render_template("404.html")
     file_path = "articles/" + name
     return render_template(file_path)
+
+@app.route("/archive")
+def archive():
+    datas = []
+    for article in conf['articles']:
+        datas.append(conf['articles'][article])
+    return render_template("archive.html", articles=datas)
 
 
 if __name__ == "__main__":

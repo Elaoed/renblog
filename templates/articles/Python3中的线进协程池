@@ -7,7 +7,7 @@
 {% endblock %}
     {% block header %}
               
-<meta name="created" content="2017-08-30T08:46:45+0800">
+<meta name="created" content="2017-08-30 08:46:45">
 <meta name="tags" content="Python, 技术">
                   
 {% endblock %}
