@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
     <header>
-        <title> {% block title %} Delphi's Blog 鹏鹏与丁满的天堂 {% endblock %} </title>
+        <title> {% block title %} 鹏鹏与丁满的世界 {% endblock %} </title>
         <link rel="shortcut icon" href={{ url_for("static", filename="icon.ico") }}>
         {% block link %}
         <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="style.css") }}>
         <link rel="stylesheet" type="text/css" href={{ url_for("static", filename="bear.css") }}>
         <script src={{ url_for("static", filename="jquery-3.2.1.min.js") }}></script>
-        <script src={{ url_for("static", filename="bear.js") }}></script>
+        <script src={{ url_for("static", filename="load.js") }}></script>
         <script src={{ url_for("static", filename="moment.js") }}></script>
-
         {% endblock %}
         {% block header %}{% endblock %}
     </header>

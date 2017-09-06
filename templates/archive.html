@@ -1,10 +1,18 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-    <ul class="archive" style="min-height: 400px">
-        {% for article in articles %}
-        <li><span>{{article['created']}}</span><a href="">{{article['title']}}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="archive">
+        <h1>Archive</h1>
+        <ul class="archive" style="min-height: 400px">
+            {% for year in years %}
+                <h3>{{year}}</h3>
+                {% for article in articles %}
+                    {% if article['year'] == year %}
+                    <li>{{article['date']}} <a href="/articles/{{article['filename']}}">{{article['title']}}</a></li>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
 
 {% endblock %}

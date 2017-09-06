@@ -4,12 +4,14 @@
 {% block link %}
 <link rel="stylesheet" style="text/css" href={{ url_for("static", filename="bear.css") }}>
 <link rel="stylesheet" style="text/css" href={{ url_for("static", filename="style.css") }}>
+<script src={{ url_for("static", filename="jquery-3.2.1.min.js") }}></script>
+<script src={{ url_for("static", filename="bear.js") }}></script>
 {% endblock %}
     {% block header %}
-              
+
 <meta name="created" content="2017-08-30 08:46:45">
 <meta name="tags" content="Python, 技术">
-                  
+
 {% endblock %}
 {% block body %}
                   <div class="note-wrapper">
