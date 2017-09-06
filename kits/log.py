@@ -18,6 +18,8 @@ def get_logger(filename, logger_name=None, on_screen=False, level=None):
 
     if level is None:
         level = logging.INFO
+    elif level == "info":
+        level = logging.INFO
     elif level == "debug":
         level = logging.DEBUG
     elif level == "warning":
