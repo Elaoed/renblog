@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <header>
+    <head>
         <title> {% block title %} 无何有之乡 {% endblock %} </title>
         <link rel="shortcut icon" href={{ url_for("static", filename="icon.ico") }}>
         {% block link %}
@@ -11,7 +11,7 @@
         <script src={{ url_for("static", filename="moment.js") }}></script>
         {% endblock %}
         {% block header %}{% endblock %}
-    </header>
+    </head>
 
     <body>
         <div class="heading">
