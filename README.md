@@ -2,11 +2,12 @@
 [![Software License](https://img.shields.io/badge/today%20-%20%20sunny-brightgreen.svg?style=flat-square)]()
 [![versions](https://img.shields.io/badge/versions%20-%20%201.0.0-red.svg?style=flat-square)]()
 
-Let's Blogging...  (ง •̀_•́)ง 
+Let's Blogging...  (ง •̀_•́)ง  
 
 Introduction
 -
-Oooops. Ideal from my friend @Jackeriss -> <a href="https://github.com/Jackeriss/Typora-Blog">Typora-Blog</a>
+Oooops. First introduce my blog -> <a href="https://www.opbear.com">www.opbear.com</a>  
+Idea from my friend @Jackeriss -> <a href="https://github.com/Jackeriss/Typora-Blog">Typora-Blog</a>
 
 Using Bear write blogs and export as .html file -> <a href="http://www.bear-writer.com">Bearwriter</a>  
 And you have to pay for Bear Pro for using this advanced feature.
