@@ -29,9 +29,11 @@ Program accept one argument with enviroment. `--help` for details.
 
 #### Convention over configuration
 1. Write with Bear note.
-2. Wrap the abstract using <div class="description"></div>.
+2. Wrap the abstract using `<div class="description"></div>`
 3. Export with .html suffix and put into templates/articles.
 4. Restart program. (For me I just restart program on supervisor - highly recommand).
+
+If you using tags in article, Blog also present it on homepage.
 
 License
 -
